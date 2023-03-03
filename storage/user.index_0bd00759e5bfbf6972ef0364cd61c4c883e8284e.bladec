@@ -1,0 +1,33 @@
+<?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('content'); ?>
+<h3>Quản lý người dùng</h3>
+<a href="<?php echo \htmlentities(url('add-user')??'', ENT_QUOTES, 'UTF-8', false); ?>" class="btn btn-primary">Thêm người dùng</a>
+<table border="1">
+ <thead>
+ <tr>
+ <th>Id</th>
+ <th>Name</th>
+ <th>Email</th>
+ <th>Actions</th>
+ </tr>
+ </thead>
+ <tbody>
+ <?php $__currentLoopData = $users; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $user): $loop = $this->incrementLoopIndices();  ?>
+ <tr>
+ <td><?php echo \htmlentities($user->id??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ <td><?php echo \htmlentities($user->name??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ <td><?php echo \htmlentities($user->email??'', ENT_QUOTES, 'UTF-8', false); ?></td>
+ <td>
+ <a href="<?php echo \htmlentities(url('edit-user/' . $user->id)??'', ENT_QUOTES, 'UTF-8', false); ?>">Sửa</a>
+ <form action="<?php echo \htmlentities(url('delele-user/' . $user->id)??'', ENT_QUOTES, 'UTF-8', false); ?>" method="post">
+ <button type="submit" name="delete_user">Xoá</button>
+ </form>
+ </td>
+ </tr>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </tbody>
+</table>
+
+<?php $this->stopSection(); ?>
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layout.main'); } ?>
